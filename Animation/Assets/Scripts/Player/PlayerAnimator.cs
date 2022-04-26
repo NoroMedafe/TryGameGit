@@ -2,37 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
+
 public class PlayerAnimator : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
 
-    private float _posX;
-    private float speed;
+    private string _speedTreshold = "speedTreshold";
+    private string _triggerHit = "hit";
+    private Player _player;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _posX = transform.position.x;
+        _player = GetComponent<Player>();
     }
 
-    public float CurrentPlayerSpeed()
+    public void Expectation()
     {
-         speed = (transform.position.x - _posX) / Time.deltaTime;
-        _posX = transform.position.x;
-        return speed =Mathf.Abs(speed);
+        _animator.SetFloat(_speedTreshold, _player.GetSpeed());
     }
 
-    public void WaitingState()
+    public void Run()
     {
-        _animator.SetFloat("aSpeed", speed);
+        _animator.SetFloat(_speedTreshold, _player.GetSpeed());
     }
 
-    public void RunState()
+    public void Hit()
     {
-        _animator.SetFloat("aSpeed", speed);
-    }
-    public void hitTrigger()
-    {
-        _animator.SetTrigger("hit");
+        _animator.SetTrigger(_triggerHit);
     }
 }

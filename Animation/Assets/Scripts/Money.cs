@@ -11,7 +11,7 @@ public class Money : MonoBehaviour
 
         if (collision.TryGetComponent(out Player player))
         {
-            player.ApplyMoney(_costMoney);
+            player.TakeMoney(_costMoney);
             Destroy(gameObject);
         }
 
